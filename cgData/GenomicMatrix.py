@@ -1,6 +1,6 @@
 
-import cgDataV2.Exceptions
-from cgDataV2.GenomicMatrixMetadata import GenomicMatrixMetadata
+import ucscCancer.cgData.Exceptions
+from ucscCancer.cgData.GenomicMatrixMetadata import GenomicMatrixMetadata
 
 import sys
 

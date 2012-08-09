@@ -1,4 +1,4 @@
-import cgDataV2.Exceptions
+import ucscCancer.cgData.Exceptions
 
 class Metadata(object):
     """This class describes the basic metadata associated with each class.  Each
@@ -65,4 +65,8 @@ class Metadata(object):
 
     def write(self, filename):
         """Write the metadata object to the specified filename"""
+        pass
+
+    def data(self):
+        """Return the data object associated with this metadata"""
         pass

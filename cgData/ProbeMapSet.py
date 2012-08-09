@@ -1,5 +1,5 @@
-import cgDataV2.Exceptions
-from cgDataV2.ProbeMapVector import ProbeMapVector
+import ucscCancer.cgData.Exceptions
+from ucscCancer.cgData.ProbeMapVector import ProbeMapVector
 
 class ProbeMapSet(object):
     """This class represents a collection of ProbeMap objects, such

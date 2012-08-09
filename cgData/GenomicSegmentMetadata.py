@@ -1,5 +1,5 @@
-import cgDataV2.Exceptions
-from cgDataV2.GenomicMetadata import GenomicMetadata
+import ucscCancer.cgData.Exceptions
+from ucscCancer.cgData.GenomicMetadata import GenomicMetadata
 
 class GenomicSegmentMetadata(GenomicMetadata):
     """This class describes the metadata specific to GenomicSegment objects.

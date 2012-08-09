@@ -1,6 +1,6 @@
 
-import cgDataV2.Exceptions
-from cgDataV2.GenomicMetadata import GenomicMetadata
+import ucscCancer.cgData.Exceptions
+from ucscCancer.cgData.GenomicMetadata import GenomicMetadata
 
 class GenomicMatrixMetadata(GenomicMetadata):
     """This class describes the metadata specific to GenomicMatrix objects.

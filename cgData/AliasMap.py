@@ -1,4 +1,4 @@
-import cgDataV2.Exceptions
+import ucscCancer.cgData.Exceptions
 
 class AliasMap(object):
     """An AliasMap object links probes to other sets of identifiers.  For

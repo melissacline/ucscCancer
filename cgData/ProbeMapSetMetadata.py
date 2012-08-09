@@ -1,8 +1,8 @@
 
-import cgDataV2.Exceptions
-from cgDataV2.Metadata import Metadata
+import ucscCancer.cgData.Exceptions
+from ucscCancer.cgData.Metadata import Metadata
 
-class ProbeMapMetadata(Metadata):
+class ProbeMapSetMetadata(Metadata):
     """This class describes the metadata relating to ProbeMap objects.  In addition
     to the common metadata, ProbeMap metadata specifies the genomic assembly.
     """
