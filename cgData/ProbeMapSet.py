@@ -37,11 +37,11 @@ class ProbeMapSet(object):
         """Return the number of probes in this ProbeMapSet"""
         pass
 
-    def probeList(self):
+    def probes(self):
         """Return the list of probes represented in this ProbeMapSet"""
         pass
 
-    def sort(self, cmp=ProbeMapVector.probeMapVectorCompare):
+    def sort(self, cmp=ProbeMapVector.compare):
         """Sort the probe map vectors according to the indicated comparison function"""
         pass
     

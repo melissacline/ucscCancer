@@ -60,11 +60,12 @@ class GenomicSegmentVector(DataVector):
         object if unsuccessful.  """
         pass
 
-    def genomicSegmentVectorCompare(vector1, vector2):
-        """Return the results of comparing vector1 to vector2, comparing each field
-        (id, chrom, chromStart, chromEnd, strand, value) in the order indicated.
-        Use numeric comparison on chromStart, chromEnd, and value, and lexical
-        comparison on all other fields."""
+    def compare(vector1, vector2):
+        """Return the results of comparing GenomicSegmentVectors
+        vector1 to vector2, comparing each field (id, chrom,
+        chromStart, chromEnd, strand, value) in the order indicated.
+        Use numeric comparison on chromStart, chromEnd, and value, and
+        lexical comparison on all other fields."""
         pass
     
     def write(self, filehandle, delimiter="\t"):

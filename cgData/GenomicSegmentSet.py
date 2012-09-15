@@ -35,11 +35,11 @@ class GenomicSegmentSet(object):
         """Return the number of samples in this GenomicMatrix"""
         pass
 
-    def sampleList(self):
+    def samples(self):
         """Return the list of samples represented in this GenonicSegmentSet"""
         pass
 
-    def sort(self, cmp=GenomicSegmentVector.genomicSegmentVectorCompare):
+    def sort(self, cmp=GenomicSegmentVector.compare):
         """Sort the genomic segments according to the indicated compare function"""
         pass
         

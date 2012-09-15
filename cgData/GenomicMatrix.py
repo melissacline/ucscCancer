@@ -1,10 +1,10 @@
 
 import ucscCancer.cgData.Exceptions
 from ucscCancer.cgData.GenomicMatrixMetadata import GenomicMatrixMetadata
-
+from ucscCancer.cgData.DataMatrix import DataMatrix
 import sys
 
-class GenomicMatrix(object):
+class GenomicMatrix(DataMatrix):
     """GenomicMatrix objects contain sets of experimental observations.
     They operate on files that are structured as matrices, with the
     rows representing probes and the columns representing samples.
@@ -29,6 +29,7 @@ class GenomicMatrix(object):
         corresponding GenomicMatrix object.  Upon creation, the new
         object is validated, and if it fails validation, a
         ValidationFailed exception is thrown """
+        super(DataMatrix, self).__init__()
         pass
 
     def __validate(self):
@@ -52,30 +53,21 @@ class GenomicMatrix(object):
     def nSamples(self):
         """Return the number of samples in this GenomicMatrix"""
 
-    def observationsByProbe(self, probe):
-        """Given a probe, return a vector of the experimental observations
-        from the GenomicMatrix for this probe
-
-        Question: would it be most useful if the data was returned as a
-        vector or a dictionary keyed by sample?
+    def observations(self, probe=None, sample=None):
+        """Given a probe and/or sample, return a vector of the
+        experimental observations from the GenomicMatrix for this probe
+        and/or sample.  Return None if either the probe or sample is
+        not in this sample matrix.  If both probe and sample are
+        None, then return a matrix of all observations.
         """
         pass
 
-    def observationsBySample(self, sample):
-        """Given the name of a sample from the GenomicMatrix, return the
-        set of experimental observations for this sample.
-
-        Question: would it be most useful if the data was returned as a
-        vector or a dictionary keyed by probe?
-        """
-        pass
-
-    def probeList(self):
+    def probes(self):
         """Return the list of probes represented in this GenomicMatrix
         """
         pass
 
-    def sampleList(self):
+    def samples(self):
         """Return the list of samples represented in this GenonicMatrix"""
         pass
 

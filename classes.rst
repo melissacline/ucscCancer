@@ -3,6 +3,24 @@
 ucscCancer.cgData Classes
 =========================
 
+.. inheritance-diagram:: ucscCancer.cgData.AliasMap 
+	ucscCancer.cgData.AliasMapMetadata 
+	ucscCancer.cgData.ClinicalFeatureSet 
+	ucscCancer.cgData.ClinicalFeatureSetMetadata 
+	ucscCancer.cgData.ClinicalFeatureVector 
+	ucscCancer.cgData.ClinicalMatrix 
+	ucscCancer.cgData.ClinicalMatrixMetadata 
+	ucscCancer.cgData.Data ucscCancer.cgData.DataMatrix 
+	ucscCancer.cgData.DataVector 
+	ucscCancer.cgData.GenomicMatrix 
+	ucscCancer.cgData.GenomicMatrixMetadata 
+	ucscCancer.cgData.GenomicMetadata ucscCancer.cgData.GenomicSegmentSet 
+	ucscCancer.cgData.GenomicSegmentMetadata 
+	ucscCancer.cgData.GenomicSegmentVector 
+	ucscCancer.cgData.Metadata ucscCancer.cgData.ProbeMapSet 
+	ucscCancer.cgData.ProbeMapSetMetadata ucscCancer.cgData.ProbeMapVector
+	 ucscCancer.cgData.SampleMap ucscCancer.cgData.SampleMapMetadata
+	:parts: 1
 
 AliasMap
 ========
@@ -96,8 +114,8 @@ GenomicSegmentSet
     :members:
     :inherited-members:
 
-GenomicSegmentSetMetadata
-=========================
+GenomicSegmentMetadata
+======================
 
 .. automodule:: ucscCancer.cgData.GenomicSegmentMetadata
     :members:

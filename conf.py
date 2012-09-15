@@ -1,3 +1,4 @@
+
 # -*- coding: utf-8 -*-
 #
 # cgDataV2 documentation build configuration file, created by
@@ -18,6 +19,7 @@ import sys, os
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 sys.path.insert(0, os.path.abspath('.'))
 sys.path.append("/cluster/software/src/Python-2.7.2/Doc/tools/sphinx/ext/")
+#sys.path.append("/cluster/software/lib/python2.7/site-packages/sphinx/ext/")
 
 # -- General configuration -----------------------------------------------------
 
@@ -26,7 +28,7 @@ sys.path.append("/cluster/software/src/Python-2.7.2/Doc/tools/sphinx/ext/")
 
 # Add any Sphinx extension module names here, as strings. They can be extensions
 # coming with Sphinx (named 'sphinx.ext.*') or your custom ones.
-extensions = ['sphinx.ext.autodoc', 'sphinx.ext.doctest', 'sphinx.ext.intersphinx', 'sphinx.ext.todo', 'sphinx.ext.coverage', 'sphinx.ext.pngmath', 'sphinx.ext.ifconfig', 'sphinx.ext.viewcode', 'sphinx.ext.graphviz']
+extensions = ['sphinx.ext.autodoc', 'sphinx.ext.doctest', 'sphinx.ext.intersphinx', 'sphinx.ext.todo', 'sphinx.ext.coverage', 'sphinx.ext.pngmath', 'sphinx.ext.ifconfig', 'sphinx.ext.viewcode', 'sphinx.ext.graphviz', 'sphinx.ext.inheritance_diagram']
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
@@ -42,7 +44,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'ucscCancer.cgData'
-copyright = u'2012, Melissa Cline'
+copyright = u'2012, Melissa Cline (me)'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -245,3 +247,10 @@ texinfo_documents = [
 
 # Example configuration for intersphinx: refer to the Python standard library.
 intersphinx_mapping = {'http://docs.python.org/': None}
+
+# for graphviz
+graphviz_dot = '/usr/bin/dot_static'
+graphviz_dot_args = ''
+graphviz_output_format = 'png'
+
+#inheritance_graph_attrs = dict(fontsize=20, size='"12.0, 12.0"')

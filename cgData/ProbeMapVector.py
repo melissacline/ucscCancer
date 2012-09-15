@@ -58,10 +58,12 @@ class ProbeMapVector(DataVector):
         exception.
         """
 
-    def probeMapVectorCompare(vector1, vector2):
-        """Compare the two probe vectors, sorting by the leftmost column first and
-        using additional columns to break ties.  Perform a lexical comparison on all
-        columns except chromStart and chromEnd; perform a numeric comparison on these"""
+    def compare(vector1, vector2):
+        """Compare the two probe map vectors, sorting by the leftmost
+        column first and using additional columns to break ties.
+        Perform a lexical comparison on all columns except chromStart
+        and chromEnd; perform a numeric comparison on these"""
+        pass
 
     def write(self, filehandle, delimiter="\t"):
         """Write a ProbeMapVector object to the indicated filehandle.

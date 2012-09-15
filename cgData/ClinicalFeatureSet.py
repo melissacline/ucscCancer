@@ -1,5 +1,5 @@
 import ucscCancer.cgData.Exceptions
-
+from ucscCancer.cgData.ClinicalFeatureSetMetadata import ClinicalFeatureSetMetadata
 
 class ClinicalFeatureSet(object):
     
@@ -39,15 +39,18 @@ class ClinicalFeatureSet(object):
         """
         pass
 
-    def featuresByName(self, name):
-        """Return the list of features pertaining to the named feature"""
+    def features(self, name=None, type=None):
+        """Return the list of features.  If name and/or type are not
+        None, then return a list of all features pertaining to the
+        indicated name and/or type.  Otherwise, return a list of all
+        features in this feature map."""
         pass
 
-    def featuresByType(self, type):
-        """Return the list of features of the indicated type"""
+    def metadata(self):
+        """Return the metadata associated with this clinical feature set"""
         pass
-
-    def nClinicalFeatures(self, name=None):
+    
+    def nFeatures(self, name=None):
         """Return the number of clinical features in this object.
         If name is specified, return only the number of features relating
         to the named feature.  Otherwise, return the total number of features
