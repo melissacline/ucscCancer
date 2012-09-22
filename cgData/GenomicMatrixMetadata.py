@@ -14,7 +14,7 @@ class GenomicMatrixMetadata(GenomicMetadata):
         method on the new object and throw a ValidationFailed exception
         if unsuccessful.
         """
-        super(GenomicMetadata, self).__init__(filename)
+        super().__init__(filename)
         pass
 
     def __validate(self):

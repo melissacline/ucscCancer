@@ -3,6 +3,15 @@
 ucscCancer.cgData Classes
 =========================
 
+All classes represent either data or metadata.  Accordingly, they
+inherit from either the Data class or the Metadata class.  All data is
+of one of two subtypes: a matrix or a table.  Matrices are represented
+by the DataMatrix class.  Tables are represented by two classes: the
+DataVector class (which describes the rows of the table) and the
+DataVectorSet class (which describes the table, or a set of
+DataVectors).
+
+
 .. inheritance-diagram:: ucscCancer.cgData.AliasMap 
 	ucscCancer.cgData.AliasMapMetadata 
 	ucscCancer.cgData.ClinicalFeatureSet 
@@ -12,6 +21,7 @@ ucscCancer.cgData Classes
 	ucscCancer.cgData.ClinicalMatrixMetadata 
 	ucscCancer.cgData.Data ucscCancer.cgData.DataMatrix 
 	ucscCancer.cgData.DataVector 
+	ucscCancer.cgData.DataVectorSet
 	ucscCancer.cgData.GenomicMatrix 
 	ucscCancer.cgData.GenomicMatrixMetadata 
 	ucscCancer.cgData.GenomicMetadata ucscCancer.cgData.GenomicSegmentSet 

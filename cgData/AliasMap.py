@@ -1,7 +1,8 @@
 import ucscCancer.cgData.Exceptions
 from ucscCancer.cgData.DataVector import DataVector
+from ucscCancer.cgData.DataVectorSet import DataVectorSet
 
-class AliasMap(DataVector):
+class AliasMap(DataVectorSet):
     """An AliasMap object links probes to other sets of identifiers.  For
     example, an alias map might map probes to gene names
 
@@ -17,7 +18,7 @@ class AliasMap(DataVector):
         object.  Upon creation, the new object is validated, and if it fails validation,
         a ValidationFailed exception is thrown.
         """
-        super(DataVector, self).__init__()
+        super().__init__()
         pass
 
     def __validate(self):

@@ -14,7 +14,7 @@ class ClinicalMatrixMetadata(Metadata):
         method on the new object and throw a ValidationFailed exception if
         unsuccessful.
         """
-        super(Metadata, self).__init__(filename)
+        super().__init__(filename)
         pass
 
     def __validate(self):

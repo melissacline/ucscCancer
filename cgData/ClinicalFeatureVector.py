@@ -29,12 +29,19 @@ class ClinicalFeatureVector(DataVector):
         be whitespace-delimited.  Upon creation, the new object is
         validated, and if it fails validation, a ValidationFailed
         exception is thrown.  """
+        super().__init__()
         pass
 
     def __validate(self):
         """Validate this ClinicalFeatureVector, and throw a ValidationFailed exception
         if unsuccessful.
         """
+        pass
+
+    def compare(vector1, vector2):
+        """Compare the two clinical feature vectors, sorting by name,
+        then shortTitle, and then in order by longTitle, valueType,
+        state, and stateOrder.  """
         pass
 
     def write(self, filenhandle):

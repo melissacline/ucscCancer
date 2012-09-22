@@ -10,7 +10,7 @@ class GenomicMetadata(Metadata):
         corresponding metadata object.  By default, run the validator
         method on the new object and return None if validation fails.
         """
-        super(Metadata, self).__init__(filename, validate=validate)
+        super().__init__(filename, validate=validate)
         pass
 
     def __validate(self):

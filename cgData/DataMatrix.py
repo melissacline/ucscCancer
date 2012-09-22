@@ -7,6 +7,6 @@ class DataMatrix(Data):
 
     def __init__(self):
         """Create a new data matrix object"""
-        super(Data, self).__init__()
+        super().__init__()
         pass
     

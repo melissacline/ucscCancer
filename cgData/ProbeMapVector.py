@@ -50,6 +50,7 @@ class ProbeMapVector(DataVector):
         final initialization step.  If validation fails, a ValidationFailed
         exception is thrown.
         """
+        super().__init__()
         pass
 
 

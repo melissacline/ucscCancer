@@ -29,7 +29,7 @@ class GenomicMatrix(DataMatrix):
         corresponding GenomicMatrix object.  Upon creation, the new
         object is validated, and if it fails validation, a
         ValidationFailed exception is thrown """
-        super(DataMatrix, self).__init__()
+        super().__init__()
         pass
 
     def __validate(self):

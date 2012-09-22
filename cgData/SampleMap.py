@@ -26,7 +26,7 @@ class SampleMap(DataVector):
         corresponding SampleMap object and return it.  Upon creation, the new
         object is validated, and if it fails validation, a ValidationFailed
         exception is thrown"""
-        super(DataVector, self).__init__()
+        super().__init__()
         pass
 
     def __validate(self):

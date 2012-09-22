@@ -11,7 +11,7 @@ class GenomicSegmentMetadata(GenomicMetadata):
         """Given the pathname of a genomic metadata file, return the
         corresponding metadata object.  
         """
-        super(Metadata, self).__init__(filename, validate=validate)
+        super().__init__(filename, validate=validate)
         pass
 
     def __validate(self):

@@ -1,8 +1,9 @@
 import ucscCancer.cgData.Exceptions
+from ucscCancer.cgData.DataVectorSet import DataVectorSet
 from ucscCancer.cgData.GenomicSegmentMetadata import GenomicSegmentMetadata
 from ucscCancer.cgData.GenomicSegmentVector import GenomicSegmentVector
 
-class GenomicSegmentSet(object):
+class GenomicSegmentSet(DataVectorSet):
     """This class represents a collection of GenomicSegment objects, such
     as a file with GenomicSegment observations.  
 
@@ -23,6 +24,7 @@ class GenomicSegmentSet(object):
         validated.  If validation fails, a ValidationFailed exception
         is thrown.
         """
+        super().__init__()
         pass
 
     def __validate(self):

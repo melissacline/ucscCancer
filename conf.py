@@ -249,7 +249,7 @@ texinfo_documents = [
 intersphinx_mapping = {'http://docs.python.org/': None}
 
 # for graphviz
-graphviz_dot = '/usr/bin/dot_static'
+graphviz_dot = '/usr/bin/dot'
 graphviz_dot_args = ''
 graphviz_output_format = 'png'
 

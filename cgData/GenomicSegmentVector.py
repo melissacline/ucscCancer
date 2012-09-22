@@ -53,6 +53,7 @@ class GenomicSegmentVector(DataVector):
         As a final initialization step, the object is validated.  If
         validation fails, a ValidationFailed exception is thrown.
         """
+        super().__init__()
         pass
 
     def __validate(self):

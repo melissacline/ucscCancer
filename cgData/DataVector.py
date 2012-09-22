@@ -7,6 +7,6 @@ class DataVector(Data):
 
     def __init__(self):
         """Create a new data vector object"""
-        super(DataVector, self).__init__()
+        super().__init__()
         pass
     

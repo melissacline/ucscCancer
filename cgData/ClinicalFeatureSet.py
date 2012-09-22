@@ -1,8 +1,9 @@
 import ucscCancer.cgData.Exceptions
 from ucscCancer.cgData.ClinicalFeatureSetMetadata import ClinicalFeatureSetMetadata
+from ucscCancer.cgData.ClinicalFeatureVector import ClinicalFeatureVector
+from ucscCancer.cgData.DataVectorSet import DataVectorSet
 
-class ClinicalFeatureSet(object):
-    
+class ClinicalFeatureSet(DataVectorSet):
     """A ClinicalFeature object contains a set of descriptions of the
     clinical data.  The data is represented as a list of
     ClinicalFeatureVector objects, each of which has a type which is
@@ -10,27 +11,17 @@ class ClinicalFeatureSet(object):
     stateOrder). Certain types of features are unique within each
     ClinicalFeatureSet while others are not.  The unique features are
     (name, shortTitle, longTitle, valueType, stateOrder).  The
-    non-unique features are (state)OA.
-
+    non-unique features are (state).
+    
     See ClinicalFeatureVector.py
     """
-
-#    __format__ = {
-#        "name" : "clinicalFeature",
-#        "type" : "type",
-#        "form" : "feature",
-#        "rowType" : "idMap",
-#        "colType" : "clinicalFeature",
-#        "valueType" : "str",
-#        "nullString" : ""
-#    }
-
-
+    
     def __init__(self, clinicalFeatureMetadata):
         """Given a clinical feature metadata object, load the
         corresponding ClinicalFeature object.  Upon creation, the new
         object is validated, and if it fails validation, a ValidationFailed
         exception is thrown.  """
+        super().__init__()
         pass
 
     def __validate(self):
@@ -58,9 +49,8 @@ class ClinicalFeatureSet(object):
         """
         pass
 
-    def sort(self):
-        """Sorts the set of clinical features by name, then shortTitle, and
-        then in order by longTitle, valueType, state, and stateOrder.
+    def sort(self, cmp=ClinicalFeatureVector.compare):
+        """Sorts the set of clinical features by the indicated sort function
         """
         pass
     

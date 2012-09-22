@@ -1,7 +1,8 @@
 import ucscCancer.cgData.Exceptions
 from ucscCancer.cgData.ProbeMapVector import ProbeMapVector
+from ucscCancer.cgData.DataVectorSet import DataVectorSet
 
-class ProbeMapSet(object):
+class ProbeMapSet(DataVectorSet):
     """This class represents a collection of ProbeMap objects, such
     as a file with ProbeMap observations.  
 
@@ -14,8 +15,6 @@ class ProbeMapSet(object):
     represented by the ProbeMap class
 
     See Also: ProbeMapVector.
-
-    Question: Would a sort method be useful?
     """
 
 
@@ -25,6 +24,7 @@ class ProbeMapSet(object):
         object is validated, and if it fails validation, a
         ValidationFailed exception is thrown.
         """
+        super().__init__()
         pass
     
     def __validate(self):
