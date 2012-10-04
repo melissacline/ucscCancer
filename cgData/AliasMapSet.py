@@ -1,15 +1,17 @@
 import ucscCancer.cgData.Exceptions
-from ucscCancer.cgData.DataVector import DataVector
-from ucscCancer.cgData.DataVectorSet import DataVectorSet
+from ucscCancer.cgData.AliasMapVector import AliasMapVector
+from ucscCancer.cgData.DataSet import DataSet
 
-class AliasMap(DataVectorSet):
-    """An AliasMap object links probes to other sets of identifiers.  For
-    example, an alias map might map probes to gene names
+class AliasMapSet(DataSet):
+    """An AliasMap object contains a number of vectors that link probes
+    to other sets of identifiers.  For example, an alias map might map
+    probes to gene names
 
     Assumptions:
     
-    * Any probe can have more than one alias in any alias map.
+    Any probe can have more than one alias in any alias map.
 
+    See also: AliasMapVector.py
     """
 
 
@@ -22,7 +24,7 @@ class AliasMap(DataVectorSet):
         pass
 
     def __validate(self):
-        """Validate this AliasMap, and throw a ValidationFailed exception if
+        """Validate this AliasMapSet, and throw a ValidationFailed exception if
         unsuccessful.
         """
         pass
@@ -43,8 +45,8 @@ class AliasMap(DataVectorSet):
         """Return the list of probes included in this AliasMap"""
         pass
 
-    def sort(self, cmp=compareEntries):
-        """Sort the alias map according to the indicated sort function"""
+    def sort(self, cmp=AliasMapVector.compare):
+        """Sort the alias map according to the indicated comparison function"""
         pass
     
     def write(self, filename):

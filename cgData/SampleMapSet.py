@@ -1,8 +1,9 @@
 
 import ucscCancer.cgData.Exceptions 
-from ucscCancer.cgData.DataVector import DataVector
+from ucscCancer.cgData.DataSet import DataSet
+from ucscCancer.cgData.SampleMapVector import SampleMapVector
 
-class SampleMap(DataVector):
+class SampleMapSet(DataSet):
     """The SampleMap connects the samples in GenomicMatrix objects to the
     clinical data in ClinicalMatrix objects, and relates sample IDs in
     a parent-child model.  This model expresses that one patient can
@@ -50,13 +51,7 @@ class SampleMap(DataVector):
         """
         pass
 
-    def compare(sampleMap1, sampleMap2):
-        """Return the results of a lexical comparison between the
-        first column in the two sample maps.  If they contain the same
-        value, return the results of a lexical comparison between the
-        second two columns"""
-        
-    def sort(self, cmp=compare):
+    def sort(self, cmp=SampleMapVector.compare):
         """Sort the sample map according to the specified comparison function."""
 
     def write(self, filename):

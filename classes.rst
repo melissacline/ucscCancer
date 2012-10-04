@@ -8,41 +8,61 @@ inherit from either the Data class or the Metadata class.  All data is
 of one of two subtypes: a matrix or a table.  Matrices are represented
 by the DataMatrix class.  Tables are represented by two classes: the
 DataVector class (which describes the rows of the table) and the
-DataVectorSet class (which describes the table, or a set of
+DataSet class (which describes the table, or a set of
 DataVectors).
 
 
-.. inheritance-diagram:: ucscCancer.cgData.AliasMap 
-	ucscCancer.cgData.AliasMapMetadata 
+.. inheritance-diagram:: ucscCancer.cgData.AliasMapMetadata
+	ucscCancer.cgData.AliasMapSet 
+	ucscCancer.cgData.AliasMapVector 
 	ucscCancer.cgData.ClinicalFeatureSet 
-	ucscCancer.cgData.ClinicalFeatureSetMetadata 
+	ucscCancer.cgData.ClinicalFeatureMetadata 
 	ucscCancer.cgData.ClinicalFeatureVector 
 	ucscCancer.cgData.ClinicalMatrix 
 	ucscCancer.cgData.ClinicalMatrixMetadata 
-	ucscCancer.cgData.Data ucscCancer.cgData.DataMatrix 
+	ucscCancer.cgData.Data 
+	ucscCancer.cgData.DataMatrix 
+	ucscCancer.cgData.DataSet
 	ucscCancer.cgData.DataVector 
-	ucscCancer.cgData.DataVectorSet
 	ucscCancer.cgData.GenomicMatrix 
 	ucscCancer.cgData.GenomicMatrixMetadata 
-	ucscCancer.cgData.GenomicMetadata ucscCancer.cgData.GenomicSegmentSet 
+	ucscCancer.cgData.GenomicMetadata 
 	ucscCancer.cgData.GenomicSegmentMetadata 
+	ucscCancer.cgData.GenomicSegmentSet 
 	ucscCancer.cgData.GenomicSegmentVector 
-	ucscCancer.cgData.Metadata ucscCancer.cgData.ProbeMapSet 
-	ucscCancer.cgData.ProbeMapSetMetadata ucscCancer.cgData.ProbeMapVector
-	 ucscCancer.cgData.SampleMap ucscCancer.cgData.SampleMapMetadata
+	ucscCancer.cgData.Metadata 
+	ucscCancer.cgData.ProbeMapMetadata 
+	ucscCancer.cgData.ProbeMapSet
+	ucscCancer.cgData.ProbeMapVector
+	ucscCancer.cgData.SampleMapMetadata 
+	ucscCancer.cgData.SampleMapSet
+	ucscCancer.cgData.SampleMapVector
 	:parts: 1
-
-AliasMap
-========
-
-.. automodule:: ucscCancer.cgData.AliasMap
-    :members:
-    :inherited-members:
 
 AliasMapMetadata
 ================
 
 .. automodule:: ucscCancer.cgData.AliasMapMetadata
+    :members:
+
+AliasMapSet
+===========
+
+.. automodule:: ucscCancer.cgData.AliasMapSet
+    :members:
+    :inherited-members:
+
+AliasMapVector
+==============
+
+.. automodule:: ucscCancer.cgData.AliasMapVector
+    :members:
+    :inherited-members:
+
+ClinicalFeatureMetadata
+========================
+
+.. automodule:: ucscCancer.cgData.ClinicalFeatureMetadata
     :members:
 
 ClinicalFeatureSet
@@ -51,12 +71,6 @@ ClinicalFeatureSet
 .. automodule:: ucscCancer.cgData.ClinicalFeatureSet
     :members:
     :inherited-members:
-
-ClinicalFeatureSetMetadata
-==========================
-
-.. automodule:: ucscCancer.cgData.ClinicalFeatureSetMetadata
-    :members:
 
 ClinicalFeatureVector
 =====================
@@ -90,11 +104,18 @@ DataMatrix
 .. automodule:: ucscCancer.cgData.DataMatrix
     :members:
 
+DataSet
+=======
+
+.. automodule:: ucscCancer.cgData.DataSet
+    :members:
+
 DataVector
 ==========
 
 .. automodule:: ucscCancer.cgData.DataVector
     :members:
+
 
 GenomicMatrix
 =============
@@ -117,19 +138,19 @@ GenomicMetadata
     :inherited-members:
 
 
-GenomicSegmentSet
-=================
-
-.. automodule:: ucscCancer.cgData.GenomicSegmentSet
-    :members:
-    :inherited-members:
-
 GenomicSegmentMetadata
 ======================
 
 .. automodule:: ucscCancer.cgData.GenomicSegmentMetadata
     :members:
 
+
+GenomicSegmentSet
+=================
+
+.. automodule:: ucscCancer.cgData.GenomicSegmentSet
+    :members:
+    :inherited-members:
 
 GenomicSegmentVector
 ====================
@@ -146,18 +167,18 @@ Metadata
     :members:
 
 
+ProbeMapMetadata
+================
+
+.. automodule:: ucscCancer.cgData.ProbeMapMetadata
+    :members:
+
 ProbeMapSet
 ===========
 
 .. automodule:: ucscCancer.cgData.ProbeMapSet
     :members:
     :inherited-members:
-
-ProbeMapSetMetadata
-===================
-
-.. automodule:: ucscCancer.cgData.ProbeMapSetMetadata
-    :members:
 
 
 ProbeMapVector
@@ -167,15 +188,23 @@ ProbeMapVector
     :members:
     :inherited-members:
 
-SampleMap
-=========
-
-.. automodule:: ucscCancer.cgData.SampleMap
-    :members:
-    :inherited-members:
-
 SampleMapMetadata
 =================
 
 .. automodule:: ucscCancer.cgData.SampleMapMetadata
     :members:
+
+SampleMapSet
+============
+
+.. automodule:: ucscCancer.cgData.SampleMapSet
+    :members:
+    :inherited-members:
+
+SampleMapVector
+===============
+
+.. automodule:: ucscCancer.cgData.SampleMapVector
+    :members:
+    :inherited-members:
+

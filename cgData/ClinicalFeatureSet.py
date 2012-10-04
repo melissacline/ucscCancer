@@ -1,9 +1,9 @@
 import ucscCancer.cgData.Exceptions
 from ucscCancer.cgData.ClinicalFeatureSetMetadata import ClinicalFeatureSetMetadata
 from ucscCancer.cgData.ClinicalFeatureVector import ClinicalFeatureVector
-from ucscCancer.cgData.DataVectorSet import DataVectorSet
+from ucscCancer.cgData.DataSet import DataSet
 
-class ClinicalFeatureSet(DataVectorSet):
+class ClinicalFeatureSet(DataSet):
     """A ClinicalFeature object contains a set of descriptions of the
     clinical data.  The data is represented as a list of
     ClinicalFeatureVector objects, each of which has a type which is

@@ -1,9 +1,9 @@
 import ucscCancer.cgData.Exceptions
-from ucscCancer.cgData.DataVectorSet import DataVectorSet
+from ucscCancer.cgData.DataSet import DataSet
 from ucscCancer.cgData.GenomicSegmentMetadata import GenomicSegmentMetadata
 from ucscCancer.cgData.GenomicSegmentVector import GenomicSegmentVector
 
-class GenomicSegmentSet(DataVectorSet):
+class GenomicSegmentSet(DataSet):
     """This class represents a collection of GenomicSegment objects, such
     as a file with GenomicSegment observations.  
 

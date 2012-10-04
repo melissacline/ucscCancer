@@ -19,7 +19,6 @@ import sys, os
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 sys.path.insert(0, os.path.abspath('.'))
 sys.path.append("/cluster/software/src/Python-2.7.2/Doc/tools/sphinx/ext/")
-#sys.path.append("/cluster/software/lib/python2.7/site-packages/sphinx/ext/")
 
 # -- General configuration -----------------------------------------------------
 
@@ -253,4 +252,4 @@ graphviz_dot = '/usr/bin/dot'
 graphviz_dot_args = ''
 graphviz_output_format = 'png'
 
-#inheritance_graph_attrs = dict(fontsize=20, size='"12.0, 12.0"')
+

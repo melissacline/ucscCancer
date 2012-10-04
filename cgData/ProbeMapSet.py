@@ -1,8 +1,8 @@
 import ucscCancer.cgData.Exceptions
 from ucscCancer.cgData.ProbeMapVector import ProbeMapVector
-from ucscCancer.cgData.DataVectorSet import DataVectorSet
+from ucscCancer.cgData.DataSet import DataSet
 
-class ProbeMapSet(DataVectorSet):
+class ProbeMapSet(DataSet):
     """This class represents a collection of ProbeMap objects, such
     as a file with ProbeMap observations.  
 
