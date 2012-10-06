@@ -1,4 +1,6 @@
-import ucscCancer.cgData.Exceptions
+from ucscCancer.cgData.Exceptions import ChainedException
+import json
+import sys
 
 class Metadata(object):
     """This class describes the basic metadata associated with each class.  Each
@@ -6,16 +8,30 @@ class Metadata(object):
     all metadata types
     """
 
-    def __init__(self, filename, validate=True):
+    def __init__(self, filename):
         """Given the pathname of a metadata file, return the corresponding
         metadata object.  Upon creation, run the validator
         method on the new object and throw a ValidationFailed exception
         if unsuccessful.
         """
-        pass
+        try:
+            fp = open(filename)
+        except IOError, ex:
+            traceback = sys.exc_info()[2]
+            raise ChainedException("cgData Metadata I/O Error", ex), None, traceback
+        else:
+            try:
+                self._contents = json.loads(fp)
+            except TypeError, ex:
+                errmsg = "Invalid cgData metadata file %s" % (filename)
+                traceback = sys.exc_info()[2]
+                raise ChainedException(errmsg, ex), None, traceback
+            else:
+                self._validate()
+                
 
     def __validate(self):
-        """Validate this GenomicMatrixMetadata object, and throw a
+        """Validate this metadata object, and throw a
         ValidationFailed exception if unsuccessful.
         """
         pass
