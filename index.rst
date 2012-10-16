@@ -36,7 +36,10 @@ Each object contains a validation method.  This validation
 method is called by the constructor as a final step.  If the object fails
 validation, then a ValidationFailed exception is thrown.
 
-  
+.. figure:: extras/Untitled.jpg
+    :width: 12in
+    :align: center  
+
 
 Contents:
 

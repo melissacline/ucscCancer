@@ -1,5 +1,5 @@
 import ucscCancer.cgData.Exceptions
-from ucscCancer.cgData.ClinicalFeatureSetMetadata import ClinicalFeatureSetMetadata
+from ucscCancer.cgData.ClinicalFeatureMetadata import ClinicalFeatureMetadata
 from ucscCancer.cgData.ClinicalFeatureVector import ClinicalFeatureVector
 from ucscCancer.cgData.DataSet import DataSet
 

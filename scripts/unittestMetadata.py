@@ -33,7 +33,7 @@ class testMetadata(unittest.TestCase):
         errorCaught = False
         try:
             metaObj = Metadata.Metadata(filename)
-        except ChainedException:
+        except IOError:
             errorCaught = True
         finally:
             self.assertTrue(errorCaught)
@@ -47,7 +47,7 @@ class testMetadata(unittest.TestCase):
         errorCaught = False
         try:
             metaObj = Metadata.Metadata(filename)
-        except ChainedException:
+        except TypeError:
             errorCaught = True
         finally:
             os.remove(filename)

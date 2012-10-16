@@ -14,20 +14,9 @@ class Metadata(object):
         method on the new object and throw a ValidationFailed exception
         if unsuccessful.
         """
-        try:
-            fp = open(filename)
-        except IOError, ex:
-            traceback = sys.exc_info()[2]
-            raise ChainedException("cgData Metadata I/O Error", ex), None, traceback
-        else:
-            try:
-                self._contents = json.loads(fp)
-            except TypeError, ex:
-                errmsg = "Invalid cgData metadata file %s" % (filename)
-                traceback = sys.exc_info()[2]
-                raise ChainedException(errmsg, ex), None, traceback
-            else:
-                self._validate()
+        fp = open(filename)
+        self._contents = json.loads(fp)
+        self._validate()
                 
 
     def __validate(self):
