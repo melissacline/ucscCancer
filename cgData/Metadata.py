@@ -1,5 +1,6 @@
 from ucscCancer.cgData.Exceptions import ChainedException
 import json
+import re
 import sys
 
 class Metadata(object):
@@ -15,11 +16,21 @@ class Metadata(object):
         if unsuccessful.
         """
         fp = open(filename)
-        self._contents = json.loads(fp)
+        self._contents = json.loads(fp.read())
+        for key in self._contents.keys():
+            #
+            # Some .json keys begin with an @ sign, which represents ???.
+            # The caller should not have to know which fields have @ signs
+            # and which don't.  For each key that begins with an @ sign,
+            # create a secondary key consisting of the same string without
+            # the @ sign, and having the same value.
+            if re.search("^@", key):
+                secondaryKey = re.sub("^@", "", key)
+                self._contents[secondaryKey] = self._contents[key]
         self._validate()
                 
 
-    def __validate(self):
+    def _validate(self):
         """Validate this metadata object, and throw a
         ValidationFailed exception if unsuccessful.
         """
