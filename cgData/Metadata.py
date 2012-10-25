@@ -1,7 +1,16 @@
-from ucscCancer.cgData.Exceptions import ChainedException
+import ucscCancer.cgData.Exceptions 
 import json
 import re
 import sys
+
+
+class ValidationFailed(Exception):
+    """This exception is thrown when an object fails validation
+    Attributes:
+    - message: a message detailing the validation error
+    - value: an optional value
+    """
+
 
 class Metadata(object):
     """This class describes the basic metadata associated with each class.  Each
@@ -15,6 +24,7 @@ class Metadata(object):
         method on the new object and throw a ValidationFailed exception
         if unsuccessful.
         """
+        self._filename = filename
         fp = open(filename)
         self._contents = json.loads(fp.read())
         for key in self._contents.keys():
@@ -34,20 +44,40 @@ class Metadata(object):
         """Validate this metadata object, and throw a
         ValidationFailed exception if unsuccessful.
         """
-        pass
+        if not self._contents.has_key('type'):
+            raise ValidationFailed("Metadata file %s contains no type field" % (self._filename))
         
+        if not self._contents.has_key('version'):
+            raise ValidationFailed("Metadata file %s contains no version field" %
+                                   (self._filename))
+
+    def _setValue(self, field, value):
+        """Update the contents of the indicated field with the indicated value"""
+        self._contents[field] = value
+
+    def _getValue(self, field):
+        """Get the metadata value for the indicated field (or key)"""
+        return self._contents[field]
+
+    def contents(self):
+        """Return the full .json data representing the object"""
+        return self._contents
+    
     def type(self):
         """
         Return the metadata type.
         """
-        pass
+        return self._getValue('type')
 
     def version(self, newVersion=None):
         """
         Update the version if a new version is specified
         Return the metadata version.
         """
-        pass
+        if newVersion != None:
+            self._setValue('version', newVersion)
+        return self._getValue('version')
+    
 
     def shortTitle(self, newShortTitle=None):
         """
@@ -55,7 +85,10 @@ class Metadata(object):
         Update the shortTitle if a new shortTitle is specified.
         Return the shortTitle if defined, or None if undefined.
         """
-        pass
+        if newVersion != None:
+            self._setValue('shortTitle', newShortTitle)
+        return self._getValue('shortTitle')
+
 
     def longTitle(self, newLongTitle=None):
         """
@@ -63,7 +96,10 @@ class Metadata(object):
         Update the longTitle if a new longTitle is specified.
         Return the longTitle if defined, or None if undefined.
         """
-        pass
+        if newLongTitle != None:
+            self._setValue('longTitle', newLongTitle)
+        return self._getValue('longTitle')
+
 
     def description(self, newDescription=None):
         """
@@ -71,13 +107,11 @@ class Metadata(object):
         Update the description if a new description is specified.
         Return the description if defined, or None if undefined.
         """
-        pass
+        if newDescription != None:
+            self._setValue('description', newDescription)
+        return self._getValue('description')
 
-    def validate(self):
-        """Validate the fields expected in all metadata objects.  Return
-        True if the validation is successful, False otherwise
-        """
-        pass
+
 
     def write(self, filename):
         """Write the metadata object to the specified filename"""
