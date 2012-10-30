@@ -57,7 +57,10 @@ class Metadata(object):
 
     def _getValue(self, field):
         """Get the metadata value for the indicated field (or key)"""
-        return self._contents[field]
+        if self._contents.has_key(field):
+            return self._contents[field]
+        else:
+            return None
 
     def contents(self):
         """Return the full .json data representing the object"""
