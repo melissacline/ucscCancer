@@ -1,32 +1,32 @@
 #!/usr/bin/env python
 
+import argparse
 import json
 import sys
 from ucscCancer.cgData.GenomicMetadata import *
 
 
-cgdir = "/inside/depot/cgrepo/cgDataFreeze2012-07-11/public/other/NCI60_public"
-genomicMetadataFile = "%s/%s" % (cgdir, "NCI60exp_genomicMatrix.json")
+
+
 
 def loadGenomicMetadata(pathname):
     """Load the genomic metadata.  Return whether the validation was
     'okay enough'"""
-    okay = True
+    genomicMetadata = None
     try:
         genomicMetadata = GenomicMetadata(pathname)
-    except IOError:
-        print >> stderr, "Genomic metadata file", pathname, "not found"
-        okay = False
-    except ValueError:
-        print >> stderr, "Genomic metadata file", pathname, "is not valid JSON"
-        okay = False
-    except ucscCancer.cgData.Metadata.ValidationFailed:
-        print >> sys.stderr, sys.exc_info()[1]
     except:
         print >> sys.stderr, sys.exc_info()[1]
-        okay = False
-    return(genomicMetadata, okay)
+        okayToContinue = False
+    else:
+        okayToContinue = True
+    return(genomicMetadata, okayToContinue)
         
 
-(genomicMetadata, okayToContinue) = loadGenomicMetadata(genomicMetadataFile)
+parser = argparse.ArgumentParser()
+parser.add_argument("genomicMetaFile",
+                    help="Pathname of the genomic metadata file")
+args = parser.parse_args()
+(genomicMetadata, okayToContinue) = loadGenomicMetadata(args.genomicMetaFile)
+
 

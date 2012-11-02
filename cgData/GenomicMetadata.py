@@ -13,38 +13,46 @@ class GenomicMetadata(Metadata):
         """
         super(GenomicMetadata, self).__init__(filename)
         self._validate()
-        directory = "/".join(filename.split("/")[1:-1])
+        directory = "/".join(filename.split("/")[0:-1])
         if directory == "":
             delimiter = ""
         else:
             delimiter = "/"
         sampleMap = self._contents["cgdata"]["columnKeySrc"]["@id"]
-        sampleMapMetadataFile = "%s%s%s.idDAG.json" % (directory, delimiter,
+        sampleMapMetadataFile1 = "%s%s%s.idDAG.json" % (directory, delimiter,
                                                        sampleMap)
-        if os.path.exists(sampleMapMetadataFile):
-            self.sampleMapMetadataFile = sampleMapMetadataFile
+        if os.path.exists(sampleMapMetadataFile1):
+            self.sampleMapMetadataFile = sampleMapMetadataFile1
         else:
-            sampleMapMetadataFile = "%s%s%s_sampleMap.json" % (directory,
+            sampleMapMetadataFile2 = "%s%s%s_sampleMap.json" % (directory,
                                                                delimiter,
                                                                sampleMap)
-            if os.path.exists(sampleMapMetadataFile):
-                self.sampleMapMetadataFile = sampleMapMetadataFile
+            if os.path.exists(sampleMapMetadataFile2):
+                self.sampleMapMetadataFile = sampleMapMetadataFile2
             else:
-                raise IOError("Cannot find idDAG file %s from Genomic Metadata file %s" % (sampleMap, filename))
+                errorMsg = (("Cannot find idDAG file %s or %s given"
+                            + " Genomic Metadata file %s")
+                            % (sampleMapMetadataFile1,
+                               sampleMapMetadataFile2, self._filename))
+                raise IOError(errorMsg)
         probeMap = self._contents["cgdata"]["rowKeySrc"]["@id"]
-        probeMapMetadataFile = "%s%s%s.probeMap.json" % (directory, delimiter,
+        probeMapMetadataFile1 = "%s%s%s.probeMap.json" % (directory, delimiter,
                                                          probeMap)
-        if os.path.exists(probeMapMetadataFile):
-            self.probeMapMetadataFile = probeMapMetadataFile
+        if os.path.exists(probeMapMetadataFile1):
+            self.probeMapMetadataFile = probeMapMetadataFile1
         else:
-            probeMapPath = "/".join(filename.split("/")[1:5]) + "/probeMap"
-            probeMapMetadataFile = "%s%s%s.probeMap.json" % (directory,
+            probeMapPath = "/".join(filename.split("/")[0:5]) + "/probeMap"
+            probeMapMetadataFile2 = "%s%s%s.probeMap.json" % (probeMapPath,
                                                              delimiter,
                                                              probeMap)
-            if os.path.exists(probeMapMetadataFile):
-                self.probeMapMetadataFile = probeMapMetadataFile
+            if os.path.exists(probeMapMetadataFile2):
+                self.probeMapMetadataFile = probeMapMetadataFile2
             else:
-                raise IOError("Cannot find probeMap file %s from Genomic Metadata file %s" % (probeMap, filename))
+                errorMsg = (("Cannot find probeMap file %s or %s given Genomic"
+                            + " Metadata file %s")
+                            % (probeMapMetadataFile1, probeMapMetadataFile2,
+                               self._filename))
+                raise IOError(errorMsg)
 
 
     def _validate(self):
@@ -58,43 +66,69 @@ class GenomicMetadata(Metadata):
         #
         # Validate the subtype
         if not self._contents.has_key('dataSubType'):
-            raise ValidationFailed("GenomicMetadata file %s contains no dataSubType object" % (self._filename))
+            errorMsg = ("GenomicMetadata file %s contains"
+                         + " no dataSubType object") % (self._filename)
+            raise ValidationFailed(errorMsg)
         else:
             subtype = self._contents["dataSubType"]
-            if not subtype.has_key("@id"): 
-                raise ValidationFailed("GenomicMetadata file %s contains a dataSubType object with no ID" % (self._filename))
+            if not subtype.has_key("@id"):
+                errorMsg = ("GenomicMetadata file %s contains a dataSubType"
+                            + " object with no ID") % (self._filename)
+                raise ValidationFailed(errorMsg)
             else:
                 type = subtype["@id"]
                 if not type in expectedTypes:
-                    raise ValidationFailed("GenomicMetadata file %s contains an unexpected type of %s" % (self._filename, type))
+                    errorMsg = ("GenomicMetadata file %s contains an"
+                                + " unexpected type of %s") % (self._filename,
+                                                              type)
+                    raise ValidationFailed(errorMsg)
         #
         # Validate the icDAG (sampleMap)
         if not self._contents.has_key("cgdata"):
-            raise ValidationFailed("GenomicMetadata file %s contains no cgdata object" % (self._filename))
+            errorMsg = ("GenomicMetadata file %s contains no cgdata"
+                         + " object") % (self._filename)
+            raise ValidationFailed(errorMsg)
         else:
             cgData = self._contents["cgdata"]
             if not cgData.has_key("columnKeySrc"):
-                raise ValidationFailed("GenomicMetadata file %s contains no columnKeySrc" % (self._filename))
+                errorMsg = ("GenomicMetadata file %s contains no columnKeySrc"
+                            % (self._filename))
+                raise ValidationFailed(errorMsg)
             else:
                 columnKeySrc = cgData['columnKeySrc']
                 if not (columnKeySrc.has_key('@id')
                         and columnKeySrc.has_key('@type')):
-                    raise ValidationFailed("GenomicMetadata file %s columnKeySrc is missing an id or type field" % self._filename)
+                    errorMsg = (("GenomicMetadata file %s columnKeySrc is"
+                                + " missing an id or type field")
+                                % (self._filename))
+                    raise ValidationFailed(errorMsg)
                 else:
                     if columnKeySrc['@type'] != "idDAG":
-                        raise ValidationFailed("GenomicMetadata file %s has a columnKeySrc type of %s where idDAG was expected" % (self._filename, columnKeySrc['@type']))
+                        errorMsg = (("GenomicMetadata file %s has a"
+                                     + " columnKeySrc type of %s"
+                                     + " where idDAG was expected")
+                                    % (self._filename, columnKeySrc['@type']))
+                        raise ValidationFailed(errorMsg)
             #
             # Validate the probe
             if not cgData.has_key("rowKeySrc"):
-                raise ValidationFailed("GenomicMetadata file %s contains no rowKeySrc" % (self._filename))
+                errorMsg = (("GenomicMetadata file %s contains no"
+                              + " rowKeySrc") % (self._filename))
+                raise ValidationFailed(errorMsg)
             else:
                 rowKeySrc = cgData['rowKeySrc']
                 if not (rowKeySrc.has_key('@id')
                         and rowKeySrc.has_key('@type')):
-                    raise ValidationFailed("GenomicMetadata file %s rowKeySrc is missing an id or type field" % self._filename)
+                    errorMsg = (("GenomicMetadata file %s rowKeySrc is"
+                                 + " missing an id or type field")
+                                % (self._filename))
+                    raise ValidationFailed(errorMsg)
                 else:
                     if rowKeySrc['@type'] != "probe":
-                        raise ValidationFailed("GenomicMetadata file %s has a rowKeySrc type of %s where probe was expected" % (self._filename, rowKeySrc['@type']))
+                        errorMsg = (("GenomicMetadata file %s has a rowKeySrc"
+                                     + " type of %s where probe was expected")
+                                    % (self._filename,rowKeySrc['@type']))
+                        raise ValidationFailed(errorMsg)
                     
 
     def subtype(self):

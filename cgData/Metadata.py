@@ -37,7 +37,9 @@ class Metadata(object):
             if re.search("^@", key):
                 secondaryKey = re.sub("^@", "", key)
                 self._contents[secondaryKey] = self._contents[key]
+        self._dataFileName = re.sub(".json", "", self._filename)
         self._validate()
+
                 
 
     def _validate(self):
