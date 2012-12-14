@@ -37,9 +37,3 @@ class GenomicSegmentMetadata(GenomicMetadata):
 
 
     
-    def assembly(self, newAssembly=None):
-        """Update the assembly if a new value is specified.
-        Return the assembly, or None if not defined.
-        """
-        pass
-

@@ -139,7 +139,7 @@ class GenomicMetadata(Metadata):
         if newRedistribution != None:
             self._setValue('redisribution', newRedistribution)
         return self._getValue('redisribution')
-        pass
+
 
     def platform(self, newPlatform=None):
         """
@@ -151,7 +151,7 @@ class GenomicMetadata(Metadata):
         if newPlatform != None:
             self._setValue('platform', newPlatform)
         return self._getValue('platform')
-        pass
+
 
     def articleTitle(self, newArticleTitle=None):
         """ The articleTitle is the title of the original publication
@@ -161,7 +161,7 @@ class GenomicMetadata(Metadata):
         if newArticleTitle != None:
             self._setValue('articleTitle', newArticleTitle)
         return self._getValue('articleTitle')
-        pass
+
 
     def citation(self, newCitation=None):
         """
@@ -173,7 +173,7 @@ class GenomicMetadata(Metadata):
         if newCitation != None:
             self._setValue('citation', newCitation)
         return self._getValue('citation')
-        pass
+
 
     def url(self, newUrl=None):
         """
@@ -184,7 +184,7 @@ class GenomicMetadata(Metadata):
         if newUrl != None:
             self._setValue('url', newUrl)
         return self._getValue('url')
-        pass
+
 
     def normalized(self, newNormalized=None):
         """
@@ -196,7 +196,7 @@ class GenomicMetadata(Metadata):
         if newNormalized != None:
             self._setValue('normalized', newNormalized)
         return self._getValue('normalized')
-        pass
+
 
     def diseaseAbbr(self, newDisease_abbr=None):
         """
@@ -208,7 +208,7 @@ class GenomicMetadata(Metadata):
         if newDiseaseAbbr != None:
             self._setValue('disease_abbr', newDiseaseAbbr)
         return self._getValue('disease_abbr')
-        pass
+
     
 
 
