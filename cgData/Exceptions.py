@@ -3,6 +3,16 @@
 import sys
 import traceback
 
+class CgException(Exception):
+    """Exception class for validation errors"""
+
+    def __init__(self, msg=None):
+        Exception.__init__(self, msg)
+        self.msg = msg
+
+    def __str__(self):
+        return repr(msg)
+
 class ChainedException(Exception):
     """Base class for exceptions.  This implements exception chaining and
     stores a stack trace.
@@ -64,13 +74,12 @@ class ChainedException(Exception):
         return desc
 
 
-class ValidationFailed(Exception):
+class ValidationFailed(CgException):
     """This exception is thrown when an object fails validation
     Attributes:
     - message: a message detailing the validation error
+    - value: an optional value
     """
 
-    def __init__(self, message):
-        self.message = message
-        pass
+
 

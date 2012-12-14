@@ -6,9 +6,15 @@ class Data(object):
     See also Metadata.pm
     """
 
-    def __init__(self):
+    def __init__(self, filename):
         """Create a new data object"""
-        pass
+        self._filename = filename
+        self._validate()
+
+    def __validate(self):
+        """Cursory validation"""
+        if not os.path.exists(self._filename):
+            raise IOERROR("Cannot find data file %s" % (self._filename))
 
     def metadata(self):
         """Return the metadata object associated with this data"""

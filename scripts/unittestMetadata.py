@@ -6,8 +6,7 @@ import random
 import string
 import sys
 import unittest
-from ucscCancer.cgData import Metadata
-from ucscCancer.cgData.Exceptions import ChainedException
+from ucscCancer.cgData.Metadata import *
 
 class testMetadata(unittest.TestCase):
     """
@@ -22,7 +21,17 @@ class testMetadata(unittest.TestCase):
             randomFilename = "%s%s" % (randomString, suffix)
             if not os.path.exists(randomFilename):
                 return(randomFilename)
+
+    def randomFileContaining(self, contents):
+        """Write the specified contents to a random nonexistant file
+        and return the filename"""
+        filename = self.randomNonexistantFilename()
+        fp = open(filename, "w")
+        fp.write(contents)
+        fp.close()
+        return(filename)
     
+        
     def setUp(self):
         """Set up the metadata object here"""
 
@@ -32,7 +41,7 @@ class testMetadata(unittest.TestCase):
         filename = self.randomNonexistantFilename()
         errorCaught = False
         try:
-            metaObj = Metadata.Metadata(filename)
+            metaObj = Metadata(filename)
         except IOError:
             errorCaught = True
         finally:
@@ -40,20 +49,54 @@ class testMetadata(unittest.TestCase):
             
     def testInvalidFileException(self):
         """Test for an exception if the metadata file is not valid JSON"""
-        filename = self.randomNonexistantFilename()
-        fp = open(filename, "w")
-        fp.write("x")
-        fp.close()
+        filename = self.randomFileContaining("x")
         errorCaught = False
         try:
-            metaObj = Metadata.Metadata(filename)
-        except TypeError:
+            metaObj = Metadata(filename)
+        except ValueError:
             errorCaught = True
         finally:
             os.remove(filename)
             self.assertTrue(errorCaught)
             
-    
+
+    def testValidationErrorNoType(self):
+        """Test for an exception if the metadata file has no 'type'"""
+        jsonData = '{ "version": "2012-02-02" }'
+        filename = self.randomFileContaining(jsonData)
+        errorCaught = False
+        try:
+            metaObj = Metadata(filename)
+        except ucscCancer.cgData.Metadata.ValidationFailed:
+            errorCaught = True
+        finally:
+            os.remove(filename)
+            self.assertTrue(errorCaught)
+            
+
+    def testValidationErrorNoVersion(self):
+        """Test for an exception if the metadata file has no 'type'"""
+        jsonData = '{ "type": "probeMap" }'
+        filename = self.randomFileContaining(jsonData)
+        errorCaught = False
+        try:
+            metaObj = Metadata(filename)
+        except ucscCancer.cgData.Metadata.ValidationFailed:
+            errorCaught = True
+        finally:
+            os.remove(filename)
+            self.assertTrue(errorCaught)
+
+    def testRetrieveContents(self):
+        """Make sure the basic contents of a json file are retrieved"""
+        jsonData = '{ "type": "probeMap", "version": "2012-02-02" }'
+        filename = self.randomFileContaining(jsonData)
+        jsonObj = Metadata(filename).contents()
+        os.remove(filename)
+        self.assertTrue(jsonObj["type"] == "probeMap"
+                        and jsonObj["version"] == "2012-02-02")
+        
+
 
 if __name__ == '__main__':
     unittest.main()
