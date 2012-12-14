@@ -1,0 +1,12 @@
+# Compiled source
+#################
+*.pyc
+
+# Recent edits
+##############
+*.py~
+*.rst~
+
+# Me
+####
+.gitignore
