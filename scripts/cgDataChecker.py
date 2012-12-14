@@ -2,31 +2,46 @@
 
 import argparse
 import json
+import re
 import sys
-from ucscCancer.cgData.GenomicMetadata import *
+from ucscCancer.cgData.GenomicMatrixMetadata import *
+from ucscCancer.cgData.GenomicSegmentMetadata import *
 
 
 
 
 
-def loadGenomicMetadata(pathname):
-    """Load the genomic metadata.  Return whether the validation was
-    'okay enough'"""
+def loadGenomicMatrixMeta(pathname):
+    """Load the genomic matrix metadata.  Return a validation flag"""
     genomicMetadata = None
     try:
-        genomicMetadata = GenomicMetadata(pathname)
+        genomicMetadata = GenomicMatrixMetadata(pathname)
     except:
         print >> sys.stderr, sys.exc_info()[1]
-        okayToContinue = False
+        okay = False
     else:
-        okayToContinue = True
-    return(genomicMetadata, okayToContinue)
+        okay = True
+    return(genomicMetadata, okay)
+        
+
+def loadGenomicSegmentMeta(pathname):
+    """Load the genomic segment metadata.  Return a vaildation flag"""
+    genomicMetadata = None
+    try:
+        genomicMetadata = GenomicSegmentMetadata(pathname)
+    except:
+        print >> sys.stderr, sys.exc_info()[1]
+        okay = False
+    else:
+        okay = True
+    return(genomicMetadata, okay)
         
 
 parser = argparse.ArgumentParser()
 parser.add_argument("genomicMetaFile",
                     help="Pathname of the genomic metadata file")
 args = parser.parse_args()
-(genomicMetadata, okayToContinue) = loadGenomicMetadata(args.genomicMetaFile)
-
-
+if re.search("genomicMatrix", args.genomicMetaFile):
+    (genomicMatrixMetadata, okay) = loadGenomicMatrixMeta(args.genomicMetaFile)
+else:
+    (genomicSegmentMetadata, okay) = loadGenomicSegmentMeta(args.genomicMetaFile)

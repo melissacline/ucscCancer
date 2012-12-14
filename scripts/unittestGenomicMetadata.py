@@ -3,10 +3,13 @@
 import json
 import os
 import random
+import re
 import string
 import sys
 import unittest
 from ucscCancer.cgData.GenomicMetadata import *
+from ucscCancer.cgData.GenomicMatrixMetadata import *
+from ucscCancer.cgData.GenomicSegmentMetadata import *
 
 class testMetadata(unittest.TestCase):
     """
@@ -22,13 +25,18 @@ class testMetadata(unittest.TestCase):
             if not os.path.exists(randomFilename):
                 return(randomFilename)
 
+    def createFileContaining(self, filename, contents):
+        """Create a file containing the specified contents"""
+        fp = open(filename, "w")
+        fp.write(contents)
+        fp.close()
+    
+
     def randomFileContaining(self, contents, suffix=".json"):
         """Write the specified contents to a random nonexistant file
         and return the filename"""
         filename = self.randomNonexistantFilename(suffix=suffix)
-        fp = open(filename, "w")
-        fp.write(contents)
-        fp.close()
+        self.createFileContaining(filename, contents)
         return(filename)
     
         
@@ -42,7 +50,22 @@ class testMetadata(unittest.TestCase):
         filename = self.randomFileContaining(jsonData)
         errorCaught = False
         try:
-            metaObj = GenomicMetadata(filename)
+            metaObj = GenomicMatrixMetadata(filename)
+        except ucscCancer.cgData.Metadata.ValidationFailed:
+            errorCaught = True
+        finally:
+            os.remove(filename)
+            self.assertTrue(errorCaught)
+            
+
+    def testValidationErrorNoCgdata2(self):
+        """Test for an exception if there is no cgdata """
+        jsonData = '{ "type" : "genomicSegment", "version" : "2012-02-02", \
+                       "dataSubType" : {"@id": "geneExp"} }'
+        filename = self.randomFileContaining(jsonData)
+        errorCaught = False
+        try:
+            metaObj = GenomicSegmentMetadata(filename)
         except ucscCancer.cgData.Metadata.ValidationFailed:
             errorCaught = True
         finally:
@@ -60,7 +83,7 @@ class testMetadata(unittest.TestCase):
         filename = self.randomFileContaining(jsonData)
         errorCaught = False
         try:
-            metaObj = GenomicMetadata(filename)
+            metaObj = GenomicMatrixMetadata(filename)
         except ucscCancer.cgData.Metadata.ValidationFailed:
             errorCaught = True
         finally:
@@ -77,7 +100,25 @@ class testMetadata(unittest.TestCase):
         filename = self.randomFileContaining(jsonData)
         errorCaught = False
         try:
-            metaObj = GenomicMetadata(filename)
+            metaObj = GenomicMatrixMetadata(filename)
+        except ucscCancer.cgData.Metadata.ValidationFailed:
+            errorCaught = True
+        finally:
+            os.remove(filename)
+            self.assertTrue(errorCaught)
+            
+
+    def testValidationErrorNoRowKeySrc2(self):
+        """if the cgdata has no rowKeySrc """
+        jsonData = '{ "type": "genomicSegment", \
+                       "version": "2012-02-02", \
+                       "dataSubType" : {"@id": "geneExp"}, \
+                       "cgdata": { "columnKeySrc": {"@id": "x", \
+                                                    "@type": "idDAG"}} }'
+        filename = self.randomFileContaining(jsonData)
+        errorCaught = False
+        try:
+            metaObj = GenomicSegmentMetadata(filename)
         except ucscCancer.cgData.Metadata.ValidationFailed:
             errorCaught = True
         finally:
@@ -95,7 +136,24 @@ class testMetadata(unittest.TestCase):
         filename = self.randomFileContaining(jsonData)
         errorCaught = False
         try:
-            metaObj = GenomicMetadata(filename)
+            metaObj = GenomicMatrixMetadata(filename)
+        except ucscCancer.cgData.Metadata.ValidationFailed:
+            errorCaught = True
+        finally:
+            os.remove(filename)
+            self.assertTrue(errorCaught)
+
+    def testValidationErrorNoRowId2(self):
+        """if the rowKeySrc has no ID"""
+        jsonData = '{ "type": "genomicSegment", "version": "2012-02-02", \
+                       "dataSubType" : {"@id": "geneExp"}, \
+                       "cgdata": { "rowKeySrc": { "@type": "idDAG"},  \
+                                   "columnKeySrc": {"@id": "x", \
+                                                    "@type": "idDAG"}} }'
+        filename = self.randomFileContaining(jsonData)
+        errorCaught = False
+        try:
+            metaObj = GenomicSegmentMetadata(filename)
         except ucscCancer.cgData.Metadata.ValidationFailed:
             errorCaught = True
         finally:
@@ -112,7 +170,60 @@ class testMetadata(unittest.TestCase):
         filename = self.randomFileContaining(jsonData)
         errorCaught = False
         try:
-            metaObj = GenomicMetadata(filename)
+            metaObj = GenomicMatrixMetadata(filename)
+        except ucscCancer.cgData.Metadata.ValidationFailed:
+            errorCaught = True
+        finally:
+            os.remove(filename)
+            self.assertTrue(errorCaught)
+            
+    def testValidationErrorNoRowType2(self):        
+        """if the rowKeySrc has no ID"""
+        jsonData = '{ "type": "genomicSegment", "version": "2012-02-02", \
+                       "dataSubType" : {"@id": "geneExp"}, \
+                       "cgdata": { "rowKeySrc": {"@id": "x"}, \
+                                   "columnKeySrc": {"@id": "x", \
+                                                    "@type": "idDAG"}} }'
+        filename = self.randomFileContaining(jsonData)
+        errorCaught = False
+        try:
+            metaObj = GenomicSegmentMetadata(filename)
+        except ucscCancer.cgData.Metadata.ValidationFailed:
+            errorCaught = True
+        finally:
+            os.remove(filename)
+            self.assertTrue(errorCaught)
+            
+    def testValidationErrorWrongRowType(self):        
+        """if the rowKeySrc has no ID"""
+        jsonData = '{ "type": "genomicMatrix", "version": "2012-02-02", \
+                       "dataSubType" : {"@id": "geneExp"}, \
+                       "cgdata": { "rowKeySrc": {"@id": "x", \
+                                                 "@type": "idDAG"}, \
+                                   "columnKeySrc": {"@id": "x", \
+                                                    "@type": "idDAG"}} }'
+        filename = self.randomFileContaining(jsonData)
+        errorCaught = False
+        try:
+            metaObj = GenomicSegmentMetadata(filename)
+        except ucscCancer.cgData.Metadata.ValidationFailed:
+            errorCaught = True
+        finally:
+            os.remove(filename)
+            self.assertTrue(errorCaught)
+            
+    def testValidationErrorWrongRowType2(self):        
+        """if the rowKeySrc has no ID"""
+        jsonData = '{ "type": "genomicSegment", "version": "2012-02-02", \
+                       "dataSubType" : {"@id": "geneExp"}, \
+                       "cgdata": { "rowKeySrc": {"@id": "x", \
+                                                 "@type": "probeMap"}, \
+                                   "columnKeySrc": {"@id": "x", \
+                                                    "@type": "idDAG"}} }'
+        filename = self.randomFileContaining(jsonData)
+        errorCaught = False
+        try:
+            metaObj = GenomicSegmentMetadata(filename)
         except ucscCancer.cgData.Metadata.ValidationFailed:
             errorCaught = True
         finally:
@@ -130,7 +241,7 @@ class testMetadata(unittest.TestCase):
         filename = self.randomFileContaining(jsonData)
         errorCaught = False
         try:
-            metaObj = GenomicMetadata(filename)
+            metaObj = GenomicMatrixMetadata(filename)
         except ucscCancer.cgData.Metadata.ValidationFailed:
             errorCaught = True
         finally:
@@ -148,7 +259,7 @@ class testMetadata(unittest.TestCase):
         filename = self.randomFileContaining(jsonData)
         errorCaught = False
         try:
-            metaObj = GenomicMetadata(filename)
+            metaObj = GenomicMatrixMetadata(filename)
         except ucscCancer.cgData.Metadata.ValidationFailed:
             errorCaught = True
         finally:
@@ -168,7 +279,7 @@ class testMetadata(unittest.TestCase):
         filename = self.randomFileContaining(jsonData)
         errorCaught = False
         try:
-            metaObj = GenomicMetadata(filename)
+            metaObj = GenomicMatrixMetadata(filename)
         except ucscCancer.cgData.Metadata.ValidationFailed:
             errorCaught = True
         finally:
@@ -177,19 +288,17 @@ class testMetadata(unittest.TestCase):
             
 
 
-    def testValidationErrorNoIdDag(self):        
+    def testValidationErrorNoIdDag2(self):        
         """if the colKeySrc type is not idDAG"""
-        jsonData = '{ "type": "genomicMatrix", \
+        jsonData = '{ "type": "genomicSegment", \
                        "version": "2012-02-02", \
                        "dataSubType" : {"@id": "geneExp"}, \
                        "cgdata": { "rowKeySrc": {"@id": "x", \
-                                                 "@type": "probe"}, \
-                                   "columnKeySrc": {"@id": "x", \
-                                                    "@type": "x"}} }'
+                                                 "@type": "x"}} }'
         filename = self.randomFileContaining(jsonData)
         errorCaught = False
         try:
-            metaObj = GenomicMetadata(filename)
+            metaObj = GenomicSegmentMetadata(filename)
         except ucscCancer.cgData.Metadata.ValidationFailed:
             errorCaught = True
         finally:
@@ -208,7 +317,24 @@ class testMetadata(unittest.TestCase):
         filename = self.randomFileContaining(jsonData)
         errorCaught = False
         try:
-            metaObj = GenomicMetadata(filename)
+            metaObj = GenomicMatrixMetadata(filename)
+        except ucscCancer.cgData.Metadata.ValidationFailed:
+            errorCaught = True
+        finally:
+            os.remove(filename)
+            self.assertTrue(errorCaught)
+            
+
+    def testValidationErrorNoSubtype2(self):        
+        """if the rowKeySrc has no data subtype"""
+        jsonData = '{ "type": "genomicSegment", \
+                       "version": "2012-02-02", \
+                       "cgdata": { "rowKeySrc": {"@id": "x", \
+                                                  "@type": "idDAG"}} }'
+        filename = self.randomFileContaining(jsonData)
+        errorCaught = False
+        try:
+            metaObj = GenomicSegmentMetadata(filename)
         except ucscCancer.cgData.Metadata.ValidationFailed:
             errorCaught = True
         finally:
@@ -229,18 +355,18 @@ class testMetadata(unittest.TestCase):
         filename = self.randomFileContaining(jsonData)
         errorCaught = False
         try:
-            metaObj = GenomicMetadata(filename)
+            metaObj = GenomicMatrixMetadata(filename)
         except ucscCancer.cgData.Metadata.ValidationFailed:
             errorCaught = True
         finally:
             os.remove(filename)
             self.assertTrue(errorCaught)
             
-    def testValidationErrorWrongSubtype(self):        
-        """if the subtype is unexpected"""
+    def testValidationErrorSubtypeNoID(self):        
+        """if the subtype has no ID"""
         jsonData = '{ "type": "genomicMatrix", \
                        "version": "2012-02-02", \
-                       "dataSubType" : {"@id": "x"}, \
+                       "dataSubType" : {"x": "geneExp"}, \
                        "cgdata": { "rowKeySrc": {"@id": "x", \
                                                  "@type": "probe"}, \
                                    "columnKeySrc": {"@id": "x", \
@@ -248,7 +374,24 @@ class testMetadata(unittest.TestCase):
         filename = self.randomFileContaining(jsonData)
         errorCaught = False
         try:
-            metaObj = GenomicMetadata(filename)
+            metaObj = GenomicMatrixMetadata(filename)
+        except ucscCancer.cgData.Metadata.ValidationFailed:
+            errorCaught = True
+        finally:
+            os.remove(filename)
+            self.assertTrue(errorCaught)
+            
+    def testValidationErrorWrongSubtype2(self):        
+        """if the subtype is unexpected"""
+        jsonData = '{ "type": "genomicMatrix", \
+                       "version": "2012-02-02", \
+                       "dataSubType" : {"@id": "x"}, \
+                       "cgdata": { "rowKeySrc": {"@id": "x", \
+                                                 "@type": "idDAG"}} }'
+        filename = self.randomFileContaining(jsonData)
+        errorCaught = False
+        try:
+            metaObj = GenomicSegmentMetadata(filename)
         except ucscCancer.cgData.Metadata.ValidationFailed:
             errorCaught = True
         finally:
@@ -272,12 +415,31 @@ class testMetadata(unittest.TestCase):
                                                     "@type": "idDAG"}} }' \
                       % (probeMapName, sampleMapName)
         filename = self.randomFileContaining(jsonData)
-        gm = GenomicMetadata(filename)
+        gm = GenomicMatrixMetadata(filename)
         os.remove(filename)
         os.remove(probeMapFile)
         os.remove(sampleMapFile)
         self.assertTrue(gm.subtype() == "geneExp"
                         and gm.probeMapMetadata() == probeMapFile
+                        and gm.sampleMapMetadata() == sampleMapFile)
+                        
+        
+
+    def testRetrieveContents2(self):
+        """Make sure the basic contents of a json file are retrieved"""
+        sampleMapFile = self.randomFileContaining("y", suffix=".idDAG.json")
+        sampleMapName = re.sub(".idDAG.json", "", sampleMapFile)
+        jsonData = '{ "type": "genomicSegment", \
+                       "version": "2012-02-02", \
+                       "dataSubType" : {"@id": "geneExp"}, \
+                       "cgdata": { "rowKeySrc": {"@id": "%s", \
+                                                 "@type": "idDAG"}} }' \
+                      % (sampleMapName)
+        filename = self.randomFileContaining(jsonData)
+        gm = GenomicSegmentMetadata(filename)
+        os.remove(filename)
+        os.remove(sampleMapFile)
+        self.assertTrue(gm.subtype() == "geneExp"
                         and gm.sampleMapMetadata() == sampleMapFile)
                         
         

@@ -2,7 +2,10 @@
 
 export PYTHONPATH=/inside/home/cline/projects/cgDataAPI:$PYTONPATH
 
-freezeDir="/inside/depot/cgrepo/cgDataFreeze2012-07-11/"
+export freezeDir="/inside/depot/cgrepo/cgDataFreeze2012-07-11/"
+
+expDir="public/TCGA/LUAD/SNP6_genomicSegment.json"
+scripts/cgDataChecker.py $freezeDir$expDir
 
 expDir="public/other/maser2007_public/maserCGH_genomicMatrix.json"
 scripts/cgDataChecker.py $freezeDir$expDir
